@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block container_div %}
+<h1>List of Cities</h1>
+<p>This is List Cities HTML</p>
+<p class="list-group-item  {% if city.is_capital %} active {% endif %}">
+    {{ city.nome }}{% if city.is_capital %} <span class="badge rounded-pill text-bg-primary">Capital</span>{% endif %}
+</p>
+<p>{{ city.is_capital }}</p>
+{% endblock %}

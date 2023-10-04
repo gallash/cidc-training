@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block container_div %}
+<h1>List of Cities</h1>
+<p>This is List Cities HTML</p>
+<ul class="list-group">
+    {# With anchor tags I cannot send the request param? #}
+    {% for city in cities %}
+        <a class="list-group-item" href="{% url 'detailed_cities_param' city.id %}">{{ city.nome }}</a>
+    {% endfor %}
+</ul>
+{% endblock %}
