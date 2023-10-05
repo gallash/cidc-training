@@ -1,5 +1,6 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from cadastro.models import Cidade
+from cadastro.forms import CidadeForm
 
 
 # Create your views here.
@@ -9,7 +10,7 @@ def list_cities(request):
         # QuerySet, and the object is not iterable
         query_set = Cidade.objects.filter(pk=request.GET['id'])
     else:
-        query_set = Cidade.objects.all()
+        query_set = Cidade.objects.all().order_by('nome')
 
     context = {
         "cities": query_set
@@ -26,7 +27,8 @@ def list_cities(request):
     return render(
         request,
         'list_cities/list_cities.html',
-        context)
+        context
+    )
 
 
 def detailed_cities_qs(request):
@@ -35,7 +37,8 @@ def detailed_cities_qs(request):
     return render(
         request,
         template_name='list_cities/detailed_city.html',
-        context={'city': city})
+        context={'city': city}
+    )
 
 
 def detailed_cities_param(request, city_id):
@@ -44,5 +47,33 @@ def detailed_cities_param(request, city_id):
     return render(
         request,
         template_name='list_cities/detailed_city.html',
-        context={'city': city})
+        context={'city': city}
+    )
 
+
+def create_city(request):
+    if request.method == "POST":
+        form = CidadeForm(request.POST)
+        # Still lacks, cleaning, checking, checking for duplicates
+        if form.is_valid():
+            # One of the forms of not allowing duplicates is by putting
+            # a True "unique" key in the Model definition
+            form.save()
+            return redirect(to='list_cities')
+    else:
+        form = CidadeForm()
+
+    context = {
+        'form': form
+    }
+    return render(
+        request,
+        template_name='list_cities/creation_form.html',
+        context=context
+    )
+
+
+def delete_city(request, city_id):
+    city = get_object_or_404(Cidade, pk=city_id)
+    city.delete()
+    return redirect(to='list_cities')
