@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block container_div %}
+<h1>State details</h1>
+<p class="list-group-item">
+    {{ state.name }}
+</p>
+<div><a class="btn btn-danger" href="{% url 'delete_state' state.pk %}">Delete</a></div>
+{% endblock %}

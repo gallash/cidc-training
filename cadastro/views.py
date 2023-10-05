@@ -1,9 +1,19 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from cadastro.models import Cidade
-from cadastro.forms import CidadeForm
+from cadastro.models import Cidade, State
+from cadastro.forms import CidadeForm, StateForm
 
 
 # Create your views here.
+# Main view
+def states_and_cities(request):
+    return render(
+        request,
+        template_name='states_and_cities/states_and_cities.html',
+        context={}
+    )
+
+
+# Cities
 def list_cities(request):
     if request.GET.__len__():
         # If I use .get() I will get the object, instead of the
@@ -26,7 +36,7 @@ def list_cities(request):
     # curly braces
     return render(
         request,
-        'list_cities/list_cities.html',
+        'cities/list.html',
         context
     )
 
@@ -36,7 +46,7 @@ def detailed_cities_qs(request):
 
     return render(
         request,
-        template_name='list_cities/detailed_city.html',
+        template_name='cities/details.html',
         context={'city': city}
     )
 
@@ -46,7 +56,7 @@ def detailed_cities_param(request, city_id):
 
     return render(
         request,
-        template_name='list_cities/detailed_city.html',
+        template_name='cities/details.html',
         context={'city': city}
     )
 
@@ -59,21 +69,59 @@ def create_city(request):
             # One of the forms of not allowing duplicates is by putting
             # a True "unique" key in the Model definition
             form.save()
-            return redirect(to='list_cities')
+            return redirect(to='cities')
     else:
         form = CidadeForm()
 
-    context = {
-        'form': form
-    }
     return render(
         request,
-        template_name='list_cities/creation_form.html',
-        context=context
+        template_name='cities/creation_form.html',
+        context={'form': form}
     )
 
 
 def delete_city(request, city_id):
     city = get_object_or_404(Cidade, pk=city_id)
     city.delete()
-    return redirect(to='list_cities')
+    return redirect(to='cities')
+
+
+# States
+def list_states(request):
+    states = State.objects.all().order_by('name')
+    return render(
+        request,
+        template_name='states/list.html',
+        context={'states': states}
+    )
+
+
+def detailed_state(request, state_id):
+    state = get_object_or_404(State, pk=state_id)
+    return render(
+        request,
+        template_name='states/details.html',
+        context={'state': state}
+    )
+
+
+def create_state(request):
+    if request.method == 'POST':
+        form = StateForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(to='states')
+    else:
+        form = StateForm()
+
+    return render(
+        request,
+        template_name='states/creation_form.html',
+        context={'form': form}
+    )
+
+
+def delete_state(request, state_id):
+    state = get_object_or_404(State, pk=state_id)
+    state.delete()
+    return redirect(to='states')

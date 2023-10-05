@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block container_div %}
+<h1>List of states</h1>
+<p><a class="btn btn-primary" href="{% url 'create_state' %}">Register a new state</a></p>
+<ul class="list-group">
+    {% for state in states %}
+        <a class="list-group-item" href="{% url 'details_state' state.pk %}">{{ state.name }}</a>
+    {% endfor %}
+</ul>
+{% endblock %}

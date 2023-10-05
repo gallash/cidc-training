@@ -8,9 +8,9 @@ Tracking progress of videos
 
 [X] Video 3
 
-[] Video 4
+[X] Video 4
 
-[] Video 5
+[X] Video 5
 
 [] Video 6
 
@@ -26,6 +26,18 @@ Tracking progress of videos
 
 
 ## Django tips
+### Activities
+* Add the following features for States:
+
+[] Model
+
+[] views 
+
+[] create 
+
+[] delete
+
+
 ### JINJA2
 Do not forget that you can work with Python variables and even add conditionals and loops:
 * {% if <condition> %} <statement> {% endif %}  -- it also works with for loop
