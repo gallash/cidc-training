@@ -7,6 +7,8 @@
 <!-- The 'action' is where (URL) the form is going to be submitted to.
 The URL is related to a function that has all the necessary business logic
 to deal with the form. -->
+{{ errors }}
+{{ form.errors }}
 <form action="{% url 'create_city' %}" method="POST">
     {% csrf_token %}
 <!--    It lacks styling-->

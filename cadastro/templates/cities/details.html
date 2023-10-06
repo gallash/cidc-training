@@ -6,5 +6,6 @@
 <p class="list-group-item  {% if city.is_capital %} active {% endif %}">
     {{ city.nome }}{% if city.is_capital %} <span class="badge rounded-pill text-bg-primary">Capital</span>{% endif %}
 </p>
+<div><a class="btn btn-primary" href="{% url 'update_city' city.pk %}">Update</a></div>
 <div><a class="btn btn-danger" href="{% url 'delete_city' city.pk %}">Delete</a></div>
 {% endblock %}

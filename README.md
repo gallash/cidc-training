@@ -29,13 +29,13 @@ Tracking progress of videos
 ### Activities
 * Add the following features for States:
 
-[] Model
+[X] Model
 
-[] views 
+[X] views 
 
-[] create 
+[X] create 
 
-[] delete
+[X] delete
 
 
 ### JINJA2

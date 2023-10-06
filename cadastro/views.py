@@ -1,4 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.db import IntegrityError
+
 from cadastro.models import Cidade, State
 from cadastro.forms import CidadeForm, StateForm
 
@@ -62,21 +64,25 @@ def detailed_cities_param(request, city_id):
 
 
 def create_city(request):
+    errors = ""
     if request.method == "POST":
         form = CidadeForm(request.POST)
         # Still lacks, cleaning, checking, checking for duplicates
-        if form.is_valid():
-            # One of the forms of not allowing duplicates is by putting
-            # a True "unique" key in the Model definition
-            form.save()
-            return redirect(to='cities')
+        try:
+            if form.is_valid():
+                # One of the forms of not allowing duplicates is by putting
+                # a True "unique" key in the Model definition
+                form.save()
+                return redirect(to='cities')
+        except IntegrityError as ie:
+            errors = ie
     else:
         form = CidadeForm()
 
     return render(
         request,
         template_name='cities/creation_form.html',
-        context={'form': form}
+        context={'form': form, 'errors': errors}
     )
 
 
@@ -84,6 +90,28 @@ def delete_city(request, city_id):
     city = get_object_or_404(Cidade, pk=city_id)
     city.delete()
     return redirect(to='cities')
+
+
+def update_city(request, city_id):
+    # Receiving the city_id via URL parameter is a little problematic
+    # in this case because in the <form> a param will be required
+    # all the time. Hence, I would have to pass the additional key-value pair
+    # 'city_id' in the context.
+    # There is another way for me to do it, which is receiving it via query strings
+    city = get_object_or_404(Cidade, pk=city_id)
+    if request.method == 'GET':
+        form = CidadeForm(instance=city)
+    elif request.method == 'POST':
+        form = CidadeForm(request.POST, instance=city)
+        if form.is_valid():
+            form.save()
+            return redirect(to='cities')
+
+    return render(
+        request,
+        template_name='cities/update_form.html',
+        context={'form': form, 'city_id': city_id}
+    )
 
 
 # States
