@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block container_div %}
+<h1>Details of {{ country.name }}</h1>
+<p class="list-group-item">
+    {{ country.name }}
+</p>
+<div><a class="btn btn-primary" href="{% url 'country_update' country.pk %}">Update</a></div>
+<div><a class="btn btn-danger" href="{% url 'country_delete' country.pk %}">Delete</a></div>
+{% endblock %}

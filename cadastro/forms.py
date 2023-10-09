@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
-from cadastro.models import Cidade, State
+from cadastro.models import Cidade, State, Country
 
 
 class CidadeForm(forms.ModelForm):
@@ -19,4 +19,10 @@ class CidadeForm(forms.ModelForm):
 class StateForm(forms.ModelForm):
     class Meta:
         model = State
+        fields = '__all__'
+
+
+class CountryForm(forms.ModelForm):
+    class Meta:
+        model = Country
         fields = '__all__'

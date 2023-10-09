@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block container_div %}
+<h1>List of countries</h1>
+<p><a class="btn btn-primary" href="{% url 'country_create' %}">Register a new country</a></p>
+<ul class="list-group">
+    {% for country in countries %}
+        <a class="list-group-item" href="{% url 'country_details' country.pk %}">{{ country.name }}</a>
+    {% endfor %}
+</ul>
+{% endblock %}

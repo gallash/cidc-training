@@ -6,9 +6,19 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 <body>
-    <div class="alert alert-primary" role="alert">
-        <p>Bootstrap Test | This is the base HTML</p>
-    </div>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-info">
+                <p class="alert alert-info alert-dismissible fade show" role="button">{{ message }}</p>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+<!--    <div class="alert alert-primary" role="alert">-->
+<!--        <p>Bootstrap Test | This is the base HTML</p>-->
+<!--    </div>-->
     <div class=container">
         {% block container_div %}{% endblock %}
     </div>

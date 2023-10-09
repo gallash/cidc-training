@@ -1,12 +1,12 @@
-from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.contrib.messages.views import SuccessMessageMixin
 
-from cadastro.models import Cidade, State
-from cadastro.forms import CidadeForm, StateForm
+from cadastro.models import Cidade, State, Country
+from cadastro.forms import CidadeForm, StateForm, CountryForm
 
 
 # Main view
@@ -15,7 +15,7 @@ class StatesAndCities(TemplateView):
     TemplateView renders a template. Can send additional information as well
     by overriding the 'get_context_data' method
     """
-    template_name = 'states_and_cities/states_and_cities.html'
+    template_name = 'countries_states_and_cities/countries_states_and_cities.html'
 
 
 class Cities:
@@ -39,10 +39,11 @@ class Cities:
             context['city_name'] = self.object.nome
             return context
 
-    class CityCreate(CreateView):
+    class CityCreate(CreateView, SuccessMessageMixin):
         model = Cidade
         form_class = CidadeForm
         template_name = 'cities/creation_form.html'
+
         success_url = reverse_lazy('cities')
 
     class CityDelete(DeleteView):
@@ -64,7 +65,7 @@ class Cities:
 
 
 class States:
-    class ListStates(ListView):
+    class StatesList(ListView):
         """
         ListView can display either from model or from querysets
         """
@@ -104,4 +105,48 @@ class States:
         def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
             context['state_name'] = self.object.name
+            return context
+
+
+class Countries:
+    class CountriesList(ListView):
+        """
+        ListView can display either from model or from querysets
+        """
+        queryset = Country.objects.all().order_by('name')
+        context_object_name = 'countries'
+        template_name = 'countries/list.html'
+
+    class CountriesDetails(DetailView):
+        """
+        DetailView will automatically expect receiving the 'pk'
+        for searching in the database for the specific entry
+        and then displaying it. Alter the name of the variable
+        for 'pk' to something else if necessary, by modifying
+        'pk_url_kwarg'
+        """
+        model = Country
+        context_object_name = 'country'
+        template_name = 'countries/details.html'
+
+    class CountriesCreate(CreateView):
+        model = Country
+        form_class = CountryForm
+        template_name = 'countries/creation_form.html'
+        success_url = reverse_lazy('countries')
+
+    class CountriesUpdate(UpdateView):
+        model = Country
+        form_class = StateForm
+        template_name = 'countries/update_form.html'
+        success_url = reverse_lazy('countries')
+
+    class CountriesDelete(DeleteView):
+        model = Country
+        template_name = 'countries/deletion_form.html'
+        success_url = reverse_lazy('countries')
+
+        def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context['country_name'] = self.object.name
             return context
