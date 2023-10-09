@@ -37,6 +37,18 @@ Tracking progress of videos
 
 [X] delete
 
+### Function based and Class based Views
+There are things that are very specific. These very specific functionalities can be built in a function
+or using inheriting from the View class.
+
+There are also generic classes (ViewList) that abstract from Detail page, Create Page, etc. These I can
+take advantage from generic classes already implemented in Django. There is also a website called 
+[CCBV](https://ccbv.co.uk/) which serves as a great compiler of Django class based view information.
+
+[Django Course](https://www.youtube.com/playlist?list=PLj7fuoRtNDcelpc_sTM_dwh6QUwrahUNj)
+
+Now I am changing form List and Detail views from function based views to Class based views.
+
 
 ### JINJA2
 Do not forget that you can work with Python variables and even add conditionals and loops:

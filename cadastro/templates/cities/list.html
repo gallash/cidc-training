@@ -7,7 +7,7 @@
 <ul class="list-group">
     {# With anchor tags I cannot send the request param? #}
     {% for city in cities %}
-        <a class="list-group-item" href="{% url 'detailed_cities_param' city.id %}">{{ city.nome }}</a>
+        <a class="list-group-item" href="{% url 'detailed_cities' city.id %}">{{ city.nome }}</a>
     {% endfor %}
 </ul>
 {% endblock %}
