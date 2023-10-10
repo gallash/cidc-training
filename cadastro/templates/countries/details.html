@@ -5,6 +5,12 @@
 <p class="list-group-item">
     {{ country.name }}
 </p>
+<p>States:</p>
+<ul>
+    {% for state in states %}
+        <li style="list-style-type: none;"><a style="text-decoration: none; color: inherit" href="{% url 'details_state' state.pk %}">{{state.name}}</a></li>
+    {% endfor %}
+</ul>
 <div><a class="btn btn-primary" href="{% url 'country_update' country.pk %}">Update</a></div>
 <div><a class="btn btn-danger" href="{% url 'country_delete' country.pk %}">Delete</a></div>
 {% endblock %}

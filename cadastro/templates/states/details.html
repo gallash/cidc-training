@@ -5,6 +5,13 @@
 <p class="list-group-item">
     {{ state.name }}
 </p>
+<p>Cities:</p>
+<ul>
+    {% for city in cities %}
+        <li style="list-style-type: none;"><a style="text-decoration: none; color: inherit;" href="{% url 'detailed_cities' city.pk %}">{{city}}</a></li>
+    {% endfor %}
+</ul>
+
 <div><a class="btn btn-primary" href="{% url 'update_state' state.pk %}">Update</a></div>
 <div><a class="btn btn-danger" href="{% url 'delete_state' state.pk %}">Delete</a></div>
 {% endblock %}

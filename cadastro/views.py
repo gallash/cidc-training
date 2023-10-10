@@ -85,6 +85,14 @@ class States:
         context_object_name = 'state'
         template_name = 'states/details.html'
 
+        def get_context_data(self, **kwargs):
+            # Filtering cities
+            cities = Cidade.objects.filter(state__pk=self.object.pk)
+
+            context = super().get_context_data(**kwargs)
+            context['cities'] = cities
+            return context
+
     class StateCreate(CreateView):
         model = State
         form_class = StateForm
@@ -128,6 +136,14 @@ class Countries:
         model = Country
         context_object_name = 'country'
         template_name = 'countries/details.html'
+
+        def get_context_data(self, **kwargs):
+            # Creating the filter that shows all states in the country
+            states = self.object.state_set.all()
+
+            context = super().get_context_data(**kwargs)
+            context['states'] = states
+            return context
 
     class CountriesCreate(CreateView):
         model = Country

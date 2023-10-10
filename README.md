@@ -12,7 +12,7 @@ Tracking progress of videos
 
 [X] Video 5
 
-[] Video 6
+[X] Video 6
 
 [] Video 7
 
@@ -27,15 +27,12 @@ Tracking progress of videos
 
 ## Django tips
 ### Activities
-* Add the following features for States:
+* Add CRUD for States and Countries:
 
-[X] Model
+[X] States
 
-[X] views 
+[X] Countries
 
-[X] create 
-
-[X] delete
 
 ### Function based and Class based Views
 There are things that are very specific. These very specific functionalities can be built in a function
