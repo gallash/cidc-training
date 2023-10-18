@@ -87,6 +87,7 @@ class States:
 
         def get_context_data(self, **kwargs):
             # Filtering cities
+            # There are many other filters. Check it out in Django's documentation
             cities = Cidade.objects.filter(state__pk=self.object.pk)
 
             context = super().get_context_data(**kwargs)

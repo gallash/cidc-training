@@ -14,7 +14,7 @@ Tracking progress of videos
 
 [X] Video 6
 
-[] Video 7
+[X] Video 7
 
 [] Video 8
 
@@ -25,7 +25,18 @@ Tracking progress of videos
 [] Video 11
 
 
+## Docker
+### Configuring Docker
+* Docker Compose
+Containerize multiple
+
+* Dockerfile
+
+* Environments separation: development and production
+
+
 ## Django tips
+
 ### Activities
 * Add CRUD for States and Countries:
 
@@ -55,3 +66,16 @@ We can also use the 'request's variables.
 
 We can also work with extending the base HTML. Just create a block in the HTML that is meant to be the base HTML,
 and extend it with the app's templates.
+
+### Configure and Run Django in Production
+[Read this](https://marketsplash.com/tutorials/django/how-to-run-django-in-production/#:~:text=Django's%20static%20and%20media%20files,them%20using%20Django's%20collectstatic%20command.&text=Run%20the%20collectstatic%20command%20to,files%20into%20the%20STATIC_ROOT%20directory.)
+ for more information on how we can configure a secure and optimal Django environment server opened to other computers
+
+Remember that [python manage.py is meant for development](https://stackoverflow.com/questions/61157573/manage-py-runserver-is-frequently-reloading-in-production). 
+The necessary steps for configuring the WSGI can be found [here](https://stackoverflow.com/questions/69659258/do-we-need-to-use-runserver-command-in-production-to-start-our-django-project). 
+Read the WSGI documentation for more details [here](https://uwsgi-docs.readthedocs.io/en/latest/). 
+
+[Read this](https://vsupalov.com/django-runserver-in-production/) for more information on why it is necessary to 
+configure Nginx and Gunicorn to run with Django in production.
+
+[Read this](https://vsupalov.com/gunicorn-and-nginx/) to further understand the relationship between Nginx and Gunicorn.

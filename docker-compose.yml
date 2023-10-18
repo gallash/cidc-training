@@ -1,0 +1,30 @@
+version: '3.5'
+
+services:
+  app:
+    build: .
+    ports:  # How do ports work?
+      - "8001:8000"
+    volumes:
+      - .:/code
+    entrypoint: ['sh', 'run-django.sh']  # Or I could use the 'command' command
+    depends_on:
+      - inatel_db
+
+  inatel_db:  # Service, server
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: root  # DB password
+      POSTGRES_DB: inatel  # DB Name, not the username
+    ports:
+      - "5433:5432"
+    volumes:
+      - inatel-database-prod:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer
+    ports:
+      - "8081:8080"
+
+volumes:
+  inatel-database-prod:
